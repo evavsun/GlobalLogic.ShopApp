@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalLogic.ShopApp.Core", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalLogic.ShopApp.Infrastructure", "src\GlobalLogic.ShopApp.Infrastructure\GlobalLogic.ShopApp.Infrastructure.csproj", "{67449047-1891-4ED3-BAA8-2C8F70B8B078}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalLogic.ShopApp.Api", "GlobalLogic.ShopApp.Api\GlobalLogic.ShopApp.Api.csproj", "{84517887-4072-433D-9FB1-BD4A1B9BCC5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalLogic.ShopApp.Api", "src\GlobalLogic.ShopApp.Api\GlobalLogic.ShopApp.Api.csproj", "{84517887-4072-433D-9FB1-BD4A1B9BCC5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalLogic.ShopApp.Application", "src\GlobalLogic.ShopApp.Application\GlobalLogic.ShopApp.Application.csproj", "{B4747C14-7A56-49E1-905F-FE43A68BB4C3}"
 EndProject
