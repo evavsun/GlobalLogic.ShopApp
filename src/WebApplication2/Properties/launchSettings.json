@@ -1,22 +1,22 @@
 {
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
+    "windowsAuthentication": true,
+    "anonymousAuthentication": false,
     "iisExpress": {
-      "applicationUrl": "http://localhost:23405",
-      "sslPort": 44334
+      "applicationUrl": "http://localhost:24385",
+      "sslPort": 44335
     }
   },
   "profiles": {
-    "GlobalLogic.ShopApp.Api": {
+    "WebApplication2": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:7104;http://localhost:5104",
+      "applicationUrl": "https://localhost:7108;http://localhost:5108",
       "dotnetRunMessages": true
     },
     "IIS Express": {
