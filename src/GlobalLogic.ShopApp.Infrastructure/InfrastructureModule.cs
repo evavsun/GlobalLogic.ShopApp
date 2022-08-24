@@ -10,9 +10,9 @@ namespace GlobalLogic.ShopApp.Infrastructure
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<IApplicationUserRepository>().As<ApplicationUserRepository>().SingleInstance();
-            builder.RegisterType<IProductRepository>().As<ProductRepository>().SingleInstance();
-            builder.RegisterType<IOrderRepository>().As<OrderRepository>().SingleInstance();
+            builder.RegisterType<ApplicationUserRepository>().As<IApplicationUserRepository>().SingleInstance();
+            builder.RegisterType<ProductRepository>().As<IProductRepository>().SingleInstance();
+            builder.RegisterType<OrderRepository>().As<IOrderRepository>().SingleInstance();
         }
     }
 }

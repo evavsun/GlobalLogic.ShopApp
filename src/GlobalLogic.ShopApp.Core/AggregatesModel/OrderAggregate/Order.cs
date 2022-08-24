@@ -18,6 +18,8 @@
 
         public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
 
+        protected Order() { }
+
         public Order(int userId, Address address, string description, string paymentMethodId)
         {
             UserId = userId;

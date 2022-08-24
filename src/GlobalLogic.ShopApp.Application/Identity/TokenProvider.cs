@@ -4,30 +4,32 @@ using GlobalLogic.ShopApp.Application.Identity.Models;
 using GlobalLogic.ShopApp.Core.AggregatesModel.ApplicationUserAggregate;
 using GlobalLogic.ShopApp.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace GlobalLogic.ShopApp.Application.Identity
 {
     public class TokenProvider : ITokenProvider
     {
-        private readonly IConfiguration _configuration;
+        private readonly IOptions<AuthOptions> _authOptions;
 
-        public TokenProvider(IConfiguration configuration)
+        public TokenProvider(IOptions<AuthOptions> authOptions)
         {
-            _configuration = configuration;
+            _authOptions = authOptions;
         }
 
         public string GetToken(ApplicationUser user)
         {
             var now = DateTime.UtcNow;
-            var authOptions = _configuration.GetSection("Auth").Get<AuthOptions>();
+            var authOptions = _authOptions.Value;
             var jwt = new JwtSecurityToken(
                     issuer: authOptions.Issuer,
                     audience: authOptions.Audience,
                     notBefore: now,
                     claims: GetIdentity(user).Claims,
                     expires: now.Add(TimeSpan.FromMinutes(authOptions.Lifetime)),
-                    signingCredentials: new SigningCredentials(authOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+                    signingCredentials: new SigningCredentials(authOptions.GetSymmetricSecurityKey(),
+                    SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
             return encodedJwt;
         }
