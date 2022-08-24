@@ -1,7 +1,7 @@
-﻿using GlobalLogic.ShopApp.Core.AggregatesModel.OrderAggregate;
+﻿using Microsoft.EntityFrameworkCore;
+using GlobalLogic.ShopApp.Core.AggregatesModel.ApplicationUserAggregate;
+using GlobalLogic.ShopApp.Core.AggregatesModel.OrderAggregate;
 using GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate;
-using GlobalLogic.ShopApp.Infrastructure.Data.Config;
-using Microsoft.EntityFrameworkCore;
 
 namespace GlobalLogic.ShopApp.Infrastructure.Data
 {
@@ -10,11 +10,13 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
-        }
+        }     
 
         public DbSet<Product> Products { get; set; }
 
         public DbSet<Order> Orders { get; set; }
+
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,14 +1,20 @@
-
-using GlobalLogic.ShopApp.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using GlobalLogic.ShopApp.Application.Identity.Models;
+using GlobalLogic.ShopApp.Infrastructure;
+using Autofac;
+using GlobalLogic.ShopApp.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Dev")));
+builder.Services.AddAppDbContext(builder.Configuration.GetConnectionString("Dev"));
+
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+{
+    containerBuilder.RegisterModule(new ApplicationModule());
+    containerBuilder.RegisterModule(new InfrastructureModule());
+});
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

@@ -2,7 +2,7 @@
 {
     public class Order : Entity, IAggregateRoot
     {
-        public string UserId { get; private set; }
+        public int UserId { get; private set; }
 
         public DateTime OrderDate { get; private set; }
 
@@ -18,7 +18,7 @@
 
         public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
 
-        public Order(string userId, Address address, string description, string paymentMethodId)
+        public Order(int userId, Address address, string description, string paymentMethodId)
         {
             UserId = userId;
             OrderDate = DateTime.UtcNow;

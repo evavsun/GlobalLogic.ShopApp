@@ -2,7 +2,7 @@
 using GlobalLogic.ShopApp.Core.AggregatesModel.OrderAggregate;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GlobalLogic.ShopApp.Infrastructure.Data.Config
+namespace GlobalLogic.ShopApp.Infrastructure.Data
 {
     internal class OrderConfig : IEntityTypeConfiguration<Order>
     {

@@ -1,10 +1,10 @@
-﻿using GlobalLogic.ShopApp.Core.AggregatesModel.IdentityUserAggregate;
+﻿using GlobalLogic.ShopApp.Core.AggregatesModel.ApplicationUserAggregate;
 
 namespace GlobalLogic.ShopApp.Core.Interfaces
 {
     public interface IUserService
     {
-        Task RegisterAsync(ApplicationUser user);
+        Task RegisterAsync(string login, string password);
 
         Task<string> LoginAsync(string login, string password);
     }

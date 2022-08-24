@@ -2,7 +2,7 @@
 using GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GlobalLogic.ShopApp.Infrastructure.Data.Config
+namespace GlobalLogic.ShopApp.Infrastructure.Data
 {
     public class ProductConfig : IEntityTypeConfiguration<Product>
     {

@@ -1,4 +1,4 @@
-﻿namespace GlobalLogic.ShopApp.Core.AggregatesModel.IdentityUserAggregate
+﻿namespace GlobalLogic.ShopApp.Core.AggregatesModel.ApplicationUserAggregate
 {
     public class ApplicationUser : Entity, IAggregateRoot
     {
