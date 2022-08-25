@@ -11,21 +11,41 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data.EF
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _appDbContext;
-        private readonly IMemoryCache _memoryCache;
         private IApplicationUserRepository? _applicationUsers;
         private IProductRepository? _products;
         private IOrderRepository? _orders;
-        private IBasketRepository? _basket;
 
-        public IApplicationUserRepository ApplicationUsers => _applicationUsers ?? new ApplicationUserRepository(_appDbContext);
-        public IProductRepository Products => _products ?? new ProductRepository(_appDbContext);
-        public IOrderRepository Orders => _orders ?? new OrderRepository(_appDbContext);
-        public IBasketRepository Basket => _basket ?? new BasketRepository(_memoryCache);
+        public IApplicationUserRepository ApplicationUsers
+        {
+            get
+            {
+                if (_applicationUsers is null)
+                    _applicationUsers = new ApplicationUserRepository(_appDbContext);
+                return _applicationUsers;
+            }
+        }
+        public IProductRepository Products
+        {
+            get
+            {
+                if (_products is null)
+                    _products = new ProductRepository(_appDbContext);
+                return _products;
+            }
+        }
+        public IOrderRepository Orders
+        {
+            get
+            {
+                if (_orders is null)
+                    _orders = new OrderRepository(_appDbContext);
+                return _orders;
+            }
+        }
 
-        public UnitOfWork(AppDbContext appDbContext, IMemoryCache memoryCache)
+        public UnitOfWork(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
-            _memoryCache = memoryCache;
         }
 
         public Task<int> SaveAsync()

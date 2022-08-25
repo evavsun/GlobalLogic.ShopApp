@@ -1,6 +1,6 @@
 ﻿namespace GlobalLogic.ShopApp.Core.AggregatesModel.BasketAggregate
 {
-    public interface IBasketRepository
+    public interface IBasketStore
     {
         Task<Basket> GetOrCreateAsync(int userId);
 

@@ -4,18 +4,18 @@ using GlobalLogic.ShopApp.Core.AggregatesModel.BasketAggregate;
 namespace GlobalLogic.ShopApp.Infrastructure.Data.MemoryCache
 {
     // TODO: migrate to Redis
-    public class BasketRepository : IBasketRepository
+    public class BasketStore : IBasketStore
     {
         private readonly IMemoryCache _memoryCache;
 
-        public BasketRepository(IMemoryCache memoryCache)
+        public BasketStore(IMemoryCache memoryCache)
         {
             _memoryCache = memoryCache;
         }
 
         public Task<Basket> GetOrCreateAsync(int userId)
         {
-            var result = _memoryCache.GetOrCreate(userId, x => 
+            var result = _memoryCache.GetOrCreate(userId, x =>
             {
                 var basket = new Basket(userId);
                 x.SetValue(basket);
