@@ -1,11 +1,10 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using GlobalLogic.ShopApp.Application.Identity.Models;
 using GlobalLogic.ShopApp.Core.AggregatesModel.ApplicationUserAggregate;
 using GlobalLogic.ShopApp.Core.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 
 namespace GlobalLogic.ShopApp.Application.Identity
 {

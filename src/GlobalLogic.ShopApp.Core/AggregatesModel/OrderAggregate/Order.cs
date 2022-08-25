@@ -1,4 +1,6 @@
-﻿namespace GlobalLogic.ShopApp.Core.AggregatesModel.OrderAggregate
+﻿using GlobalLogic.ShopApp.Core.Exceptions;
+
+namespace GlobalLogic.ShopApp.Core.AggregatesModel.OrderAggregate
 {
     public class Order : Entity, IAggregateRoot
     {
@@ -33,8 +35,8 @@
 
         public void AddOrderItem(int productId, int quantity)
         {
-            if (quantity < 1)
-                throw new ArgumentOutOfRangeException(nameof(quantity));
+            if (quantity <= 0)
+                throw new QuantityEqualOrBelowZeroException();
             _orderItems.Add(new OrderItem(productId, quantity, Id));
         }
 

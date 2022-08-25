@@ -1,4 +1,6 @@
-﻿namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
+﻿using GlobalLogic.ShopApp.Core.Exceptions;
+
+namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
 {
     public class Product : Entity, IAggregateRoot
     {
@@ -31,10 +33,13 @@
         public void AddProductImage(string path) =>
             _productImages.Add(new ProductImage(path, Id));
 
-        public void SetPrice(decimal price)
+        public void DecreaseQuantity(int quantity)
         {
-            Price = price < 0 ? throw new Exception("Create a Custom exception") : price;
-            UpdateDate = DateTime.UtcNow;
+            if(quantity <= 0)
+                throw new QuantityEqualOrBelowZeroException();
+            Quantity =- quantity > Quantity
+                ? throw new ProductQuntityIsNotAvailableException($"This quantity is not available for product - {Name}. Available quantity is {Quantity}")
+                : quantity;
         }
     }
 }

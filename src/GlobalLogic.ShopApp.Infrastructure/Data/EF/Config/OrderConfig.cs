@@ -9,7 +9,7 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data
         public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.HasMany(o => o.OrderItems)
-                .WithOne()
+                .WithOne(oi => oi.Order)
                 .HasForeignKey(oi => oi.OrderId)
                 .OnDelete(DeleteBehavior.Cascade);
 

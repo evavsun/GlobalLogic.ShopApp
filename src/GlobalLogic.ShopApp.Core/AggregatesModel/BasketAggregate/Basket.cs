@@ -2,26 +2,26 @@
 {
     public class Basket : Entity, IAggregateRoot
     {
-        public string UserId { get; private set; }
+        public int UserId { get; private set; }
 
         private readonly List<BasketItem> _items;
 
         public IReadOnlyCollection<BasketItem> Items => _items;
 
-        public Basket(string userId)
+        public Basket(int userId)
         {
             UserId = userId;
             _items = new List<BasketItem>();
         }
 
-        public void AddItem(int productId, int quantity = 1)
+        public void AddProduct(int productId, int quantity = 1)
         {
-            if (!Items.Any(i => i.ProductId == productId))
+            var existingItem = Items.FirstOrDefault(i => i.ProductId == productId);
+            if (existingItem is null)
             {
                 _items.Add(new BasketItem(productId, quantity));
                 return;
             }
-            var existingItem = Items.FirstOrDefault(i => i.ProductId == productId);
             existingItem.AddQuantity(quantity);
         }
     }

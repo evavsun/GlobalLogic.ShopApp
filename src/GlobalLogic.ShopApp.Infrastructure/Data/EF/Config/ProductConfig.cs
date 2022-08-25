@@ -9,7 +9,7 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.HasMany(p => p.ProductImages)
-                .WithOne()
+                .WithOne(pi => pi.Product)
                 .HasForeignKey(p => p.ProductId)
                 .OnDelete(DeleteBehavior.Cascade);
         }

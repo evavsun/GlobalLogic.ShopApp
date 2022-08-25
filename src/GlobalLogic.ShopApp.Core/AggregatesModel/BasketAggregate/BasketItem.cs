@@ -1,4 +1,6 @@
-﻿namespace GlobalLogic.ShopApp.Core.AggregatesModel.BasketAggregate
+﻿using GlobalLogic.ShopApp.Core.Exceptions;
+
+namespace GlobalLogic.ShopApp.Core.AggregatesModel.BasketAggregate
 {
     public class BasketItem : Entity
     {
@@ -13,6 +15,6 @@
         }
 
         public void AddQuantity(int quantity) =>
-            Quantity += quantity <= 0 ? throw new ArgumentException() : quantity;
+            Quantity += quantity <= 0 ? throw new QuantityEqualOrBelowZeroException() : quantity;
     }
 }

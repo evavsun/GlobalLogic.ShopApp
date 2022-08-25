@@ -1,8 +1,6 @@
 ﻿using Autofac;
-using GlobalLogic.ShopApp.Core.AggregatesModel.ApplicationUserAggregate;
-using GlobalLogic.ShopApp.Core.AggregatesModel.OrderAggregate;
-using GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate;
-using GlobalLogic.ShopApp.Infrastructure.Data;
+using GlobalLogic.ShopApp.Core.Interfaces;
+using GlobalLogic.ShopApp.Infrastructure.Data.EF;
 
 namespace GlobalLogic.ShopApp.Infrastructure
 {
@@ -10,9 +8,7 @@ namespace GlobalLogic.ShopApp.Infrastructure
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ApplicationUserRepository>().As<IApplicationUserRepository>().SingleInstance();
-            builder.RegisterType<ProductRepository>().As<IProductRepository>().SingleInstance();
-            builder.RegisterType<OrderRepository>().As<IOrderRepository>().SingleInstance();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
         }
     }
 }

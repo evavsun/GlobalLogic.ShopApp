@@ -2,14 +2,18 @@
 {
     public class ApplicationUser : Entity, IAggregateRoot
     {
-        public string Login { get; private set; }
+        public string Login { get; private set; } = string.Empty;
 
-        public string Password { get; private set; }
+        public string Password { get; private set; } = string.Empty;
 
-        public ApplicationUser(string login, string password)
+        public ApplicationUser()
         {
-            Login = login;
-            Password = password;
         }
+
+        public void SetPassword(string password) =>
+            Password = password;
+
+        public string SetLogin(string login) =>
+            Login = login;
     }
 }

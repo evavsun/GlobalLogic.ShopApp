@@ -8,7 +8,7 @@
             {
                 return false;
             }
-            return ReferenceEquals(left, right) || left.Equals(right);
+            return ReferenceEquals(left, right) || left!.Equals(right);
         }
 
         protected static bool NotEqualOperator(ValueObject left, ValueObject right)
