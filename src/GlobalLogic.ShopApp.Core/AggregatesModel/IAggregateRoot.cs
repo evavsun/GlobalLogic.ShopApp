@@ -1,6 +1,6 @@
 ﻿namespace GlobalLogic.ShopApp.Core.AggregatesModel
 {
-    internal interface IAggregateRoot
+    public interface IAggregateRoot
     {
     }
 }

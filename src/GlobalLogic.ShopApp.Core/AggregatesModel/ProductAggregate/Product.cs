@@ -35,7 +35,7 @@ namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
 
         public void DecreaseQuantity(int quantity)
         {
-            if(quantity <= 0)
+            if (quantity <= 0)
                 throw new QuantityEqualOrBelowZeroException();
             Quantity =- quantity > Quantity
                 ? throw new ProductQuntityIsNotAvailableException($"This quantity is not available for product - {Name}. Available quantity is {Quantity}")

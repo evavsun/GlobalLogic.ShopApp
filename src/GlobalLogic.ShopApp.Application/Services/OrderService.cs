@@ -6,19 +6,19 @@ namespace GlobalLogic.ShopApp.Application.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly IBasketRepository _basketRepository;
+        private readonly IBasketStore _basketStore;
 
         private readonly IUnitOfWork _unitOfWork;
 
-        public OrderService(IBasketRepository basketRepository, IUnitOfWork unitOfWork)
+        public OrderService(IBasketStore basketStore, IUnitOfWork unitOfWork)
         {
-            _basketRepository = basketRepository;
+            _basketStore = basketStore;
             _unitOfWork = unitOfWork;
         }
 
         public async Task CreateAsync(Order order)
         {
-            var basket = await _basketRepository.GetAsync(order.UserId);
+            var basket = await _basketStore.GetAsync(order.UserId);
             var products = await _unitOfWork.Products.FindAsync(x => basket.Items.Select(i => i.ProductId).Contains(x.Id));
             foreach (var item in basket.Items)
             {
@@ -32,6 +32,6 @@ namespace GlobalLogic.ShopApp.Application.Services
         }
 
         private Task CleanUpBasket(int userId) =>
-            _basketRepository.DeleteAsync(userId);
+            _basketStore.DeleteAsync(userId);
     }
 }
