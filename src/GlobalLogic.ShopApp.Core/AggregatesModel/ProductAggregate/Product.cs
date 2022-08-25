@@ -24,9 +24,9 @@ namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
         {
             Name = name;
             Description = description;
-            Price = price;
+            Price = ValidatePrice(price) ? price : throw new ProductPriceException();
             CreateDate = DateTime.UtcNow;
-            Quantity = quantity;
+            Quantity = ValidateQunatity(quantity) ? quantity : throw new QuantityEqualOrBelowZeroException();
             _productImages = new List<ProductImage>();
         }
 
@@ -35,11 +35,17 @@ namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
 
         public void DecreaseQuantity(int quantity)
         {
-            if (quantity <= 0)
+            if (!ValidateQunatity(quantity))
                 throw new QuantityEqualOrBelowZeroException();
             Quantity =- quantity > Quantity
                 ? throw new ProductQuntityIsNotAvailableException($"This quantity is not available for product - {Name}. Available quantity is {Quantity}")
                 : quantity;
         }
+
+        private bool ValidateQunatity(int quantity) =>
+            quantity > 0;
+
+        private bool ValidatePrice(decimal price) =>
+            price >= 0;
     }
 }
