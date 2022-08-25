@@ -15,12 +15,11 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data.EF
         private IApplicationUserRepository? _applicationUsers;
         private IProductRepository? _products;
         private IOrderRepository? _orders;
-        private IBasketRepository _basket;
+        private IBasketRepository? _basket;
 
         public IApplicationUserRepository ApplicationUsers => _applicationUsers ?? new ApplicationUserRepository(_appDbContext);
         public IProductRepository Products => _products ?? new ProductRepository(_appDbContext);
         public IOrderRepository Orders => _orders ?? new OrderRepository(_appDbContext);
-
         public IBasketRepository Basket => _basket ?? new BasketRepository(_memoryCache);
 
         public UnitOfWork(AppDbContext appDbContext, IMemoryCache memoryCache)
