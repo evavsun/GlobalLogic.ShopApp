@@ -8,9 +8,9 @@ namespace GlobalLogic.ShopApp.Api.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IAuthorizationService _userService;
 
-        public AccountController(IUserService userService)
+        public AccountController(IAuthorizationService userService)
         {
             _userService = userService;
         }

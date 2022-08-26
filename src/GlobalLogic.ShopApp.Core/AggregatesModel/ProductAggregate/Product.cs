@@ -8,7 +8,7 @@ namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
 
         public decimal Price { get; private set; }
 
-        public int Quantity { get; private set; }
+        public ProductQuantity Quantity { get; private set; }
 
         public DateTime CreateDate { get; private set; }
 
@@ -26,24 +26,12 @@ namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
             Description = description;
             Price = ValidatePrice(price) ? price : throw new ProductPriceException();
             CreateDate = DateTime.UtcNow;
-            Quantity = ValidateQunatity(quantity) ? quantity : throw new QuantityEqualOrBelowZeroException();
+            Quantity = new ProductQuantity(quantity);
             _productImages = new List<ProductImage>();
         }
 
         public void AddProductImage(string path) =>
             _productImages.Add(new ProductImage(path, Id));
-
-        public void DecreaseQuantity(int quantity)
-        {
-            if (!ValidateQunatity(quantity))
-                throw new QuantityEqualOrBelowZeroException();
-            Quantity =- quantity > Quantity
-                ? throw new ProductQuntityIsNotAvailableException($"This quantity is not available for product - {Name}. Available quantity is {Quantity}")
-                : quantity;
-        }
-
-        private bool ValidateQunatity(int quantity) =>
-            quantity > 0;
 
         private bool ValidatePrice(decimal price) =>
             price >= 0;

@@ -9,7 +9,7 @@ namespace GlobalLogic.ShopApp.Application
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<UserService>().As<IUserService>().SingleInstance();
+            builder.RegisterType<AuthorizationService>().As<IAuthorizationService>().SingleInstance();
             builder.RegisterType<TokenProvider>().As<ITokenProvider>().SingleInstance();
             builder.RegisterGeneric(typeof(PasswordHasher<>)).As(typeof(IPasswordHasher<>)).SingleInstance();
         }

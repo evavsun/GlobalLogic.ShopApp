@@ -5,7 +5,7 @@ using GlobalLogic.ShopApp.Core.Interfaces;
 
 namespace GlobalLogic.ShopApp.Application.Identity
 {
-    public class UserService : IUserService
+    public class AuthorizationService : IAuthorizationService
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -13,7 +13,7 @@ namespace GlobalLogic.ShopApp.Application.Identity
 
         private readonly ITokenProvider _tokenProvider;
 
-        public UserService(IUnitOfWork unitOfWork, IPasswordHasher<ApplicationUser> passwordHasher, ITokenProvider tokenProvider)
+        public AuthorizationService(IUnitOfWork unitOfWork, IPasswordHasher<ApplicationUser> passwordHasher, ITokenProvider tokenProvider)
         {
             _unitOfWork = unitOfWork;
             _passwordHasher = passwordHasher;
