@@ -1,4 +1,6 @@
-﻿namespace GlobalLogic.ShopApp.Core.AggregatesModel.ApplicationUserAggregate
+﻿using GlobalLogic.ShopApp.Core.Exceptions;
+
+namespace GlobalLogic.ShopApp.Core.AggregatesModel.ApplicationUserAggregate
 {
     public class ApplicationUser : Entity, IAggregateRoot
     {
@@ -13,7 +15,12 @@
         public void SetPassword(string password) =>
             Password = password;
 
-        public string SetLogin(string login) =>
+        public async Task SetLoginAsync(string login, IApplicationUserRepository applicationUserRepository)
+        {
+            var userExists = (await applicationUserRepository.GetAsync(login)) is not null;
+            if (userExists)
+                throw new UserAlreadyExistsException();
             Login = login;
+        }
     }
 }

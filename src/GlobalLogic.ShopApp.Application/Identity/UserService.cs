@@ -22,7 +22,7 @@ namespace GlobalLogic.ShopApp.Application.Identity
 
         public async Task<string> LoginAsync(string login, string password)
         {
-            var dbUser = await _unitOfWork.ApplicationUsers.GetAsync(u => u.Login == login);
+            var dbUser = await _unitOfWork.ApplicationUsers.GetAsync(login);
             if (dbUser == null)
                 throw new UserDoesNotExistException();
             var passwordVerificationResult = _passwordHasher.VerifyHashedPassword(dbUser, dbUser.Password, password);
@@ -33,12 +33,9 @@ namespace GlobalLogic.ShopApp.Application.Identity
 
         public async Task RegisterAsync(string login, string password)
         {
-            var dbUser = await _unitOfWork.ApplicationUsers.GetAsync(u => u.Login == login);
-            if (dbUser is not null)
-                throw new UserAlreadyExistsException();
             var newUser = new ApplicationUser();
+            await newUser.SetLoginAsync(login, _unitOfWork.ApplicationUsers);
             var hashedPassword = _passwordHasher.HashPassword(newUser, password);
-            newUser.SetLogin(login);
             newUser.SetPassword(hashedPassword);
             await _unitOfWork.ApplicationUsers.AddAsync(newUser);
             await _unitOfWork.SaveAsync();
