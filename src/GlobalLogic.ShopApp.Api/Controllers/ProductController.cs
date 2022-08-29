@@ -43,7 +43,6 @@ namespace GlobalLogic.ShopApp.Api.Controllers
             return Ok();
         }
 
-        // PUT api/<ProductController>/5
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] ProductUpdateRequest product)
         {
@@ -55,10 +54,15 @@ namespace GlobalLogic.ShopApp.Api.Controllers
             return Ok();
         }
 
-        // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            var dbProduct = await _unitOfWork.Products.GetByIdAsync(id);
+            if (dbProduct is null)
+                return NotFound();
+            _unitOfWork.Products.Remove(dbProduct);
+            await _unitOfWork.SaveAsync();
+            return Ok();
         }
     }
 }
