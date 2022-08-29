@@ -22,7 +22,7 @@ namespace GlobalLogic.ShopApp.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] CreateOrderRequest createOrderRequest)
         {
-            var user = await _unitOfWork.ApplicationUsers.GetAsync(HttpContext!.User!.Identity!.Name!);
+            var user = await _unitOfWork.ApplicationUsers.GetAsync(HttpContext.User.Identity.Name);
             await _orderService.CreateAsync(createOrderRequest.MapToOrder(user!.Id));
             return Ok();
         }

@@ -2,7 +2,7 @@
 
 namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
 {
-    public class ProductPrice
+    public record class ProductPrice
     {
         public decimal Price { get; private set; }
 

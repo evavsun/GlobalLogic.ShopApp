@@ -15,6 +15,6 @@ namespace GlobalLogic.ShopApp.Api.Models.Products
         public string[] ProductImages { get; set; }
 
         public Product MapToProduct() =>
-            new(Name, Description, Price, Qunatity);
+            new(Name, Description, new ProductPrice(Price), new ProductQuantity(Qunatity));
     }
 }

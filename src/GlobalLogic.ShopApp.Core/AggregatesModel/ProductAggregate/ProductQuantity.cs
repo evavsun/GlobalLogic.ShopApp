@@ -2,7 +2,7 @@
 
 namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
 {
-    public class ProductQuantity
+    public record class ProductQuantity
     {
         public int Quantity { get; private set; }
 

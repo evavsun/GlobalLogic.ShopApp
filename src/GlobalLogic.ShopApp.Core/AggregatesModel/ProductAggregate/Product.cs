@@ -22,27 +22,25 @@
 
         protected Product() { }
 
-        public Product(string name, string description, decimal price, int quantity)
+        public Product(string name, string description, ProductPrice price, ProductQuantity quantity)
         {
             Name = name;
             Description = description;
-            Price = new ProductPrice(price);
+            Price = price;
             CreateDate = DateTime.UtcNow;
-            Quantity = new ProductQuantity(quantity);
+            Quantity = quantity;
             _productImages = new List<ProductImage>();
         }
 
         public void SetName(string name)
         {
             Name = name;
-            UpdateDate = DateTime.UtcNow;
         }
 
 
-        public void SetDescription(string description) 
+        public void SetDescription(string description)
         {
             Description = description;
-            UpdateDate = DateTime.UtcNow;
         }
 
 

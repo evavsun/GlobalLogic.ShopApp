@@ -8,24 +8,24 @@ namespace GlobalLogic.ShopApp.Api.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IAuthorizationService _userService;
+        private readonly IAuthorizationService _authorizationService;
 
-        public AccountController(IAuthorizationService userService)
+        public AccountController(IAuthorizationService authorizationService)
         {
-            _userService = userService;
+            _authorizationService = authorizationService;
         }
 
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] ApplicationUserRequest applicationUserRequest)
         {
-            var token = await _userService.LoginAsync(applicationUserRequest.Login, applicationUserRequest.Password);
+            var token = await _authorizationService.LoginAsync(applicationUserRequest.Login, applicationUserRequest.Password);
             return Ok(token);
         }
 
         [HttpPost("register")]
         public async Task<ActionResult> Register([FromBody] ApplicationUserRequest applicationUserRequest)
         {
-            await _userService.RegisterAsync(applicationUserRequest.Login, applicationUserRequest.Password);
+            await _authorizationService.RegisterAsync(applicationUserRequest.Login, applicationUserRequest.Password);
             return Ok();
         }
     }
