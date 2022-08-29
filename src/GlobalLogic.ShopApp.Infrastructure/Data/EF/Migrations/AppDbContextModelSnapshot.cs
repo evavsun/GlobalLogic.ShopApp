@@ -45,11 +45,10 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data.EF.Migrations
 
             modelBuilder.Entity("GlobalLogic.ShopApp.Core.AggregatesModel.OrderAggregate.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -70,19 +69,15 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data.EF.Migrations
 
                     b.HasKey("Id");
 
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
+
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("GlobalLogic.ShopApp.Core.AggregatesModel.OrderAggregate.OrderItem", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -90,9 +85,7 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data.EF.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
+                    b.HasKey("OrderId", "ProductId");
 
                     b.ToTable("OrderItem");
                 });
@@ -115,12 +108,6 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data.EF.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
@@ -156,8 +143,9 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data.EF.Migrations
                 {
                     b.OwnsOne("GlobalLogic.ShopApp.Core.AggregatesModel.OrderAggregate.Address", "Address", b1 =>
                         {
-                            b1.Property<int>("OrderId")
-                                .HasColumnType("int");
+                            b1.Property<Guid>("OrderId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("City")
                                 .IsRequired()
@@ -200,6 +188,49 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data.EF.Migrations
                         .IsRequired();
 
                     b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate.Product", b =>
+                {
+                    b.OwnsOne("GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate.ProductPrice", "Price", b1 =>
+                        {
+                            b1.Property<int>("ProductId")
+                                .HasColumnType("int");
+
+                            b1.Property<decimal>("Price")
+                                .HasColumnType("decimal(18,2)")
+                                .HasColumnName("Price");
+
+                            b1.HasKey("ProductId");
+
+                            b1.ToTable("Products");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProductId");
+                        });
+
+                    b.OwnsOne("GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate.ProductQuantity", "Quantity", b1 =>
+                        {
+                            b1.Property<int>("ProductId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Quantity")
+                                .HasColumnType("int")
+                                .HasColumnName("Quantity");
+
+                            b1.HasKey("ProductId");
+
+                            b1.ToTable("Products");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProductId");
+                        });
+
+                    b.Navigation("Price")
+                        .IsRequired();
+
+                    b.Navigation("Quantity")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate.ProductImage", b =>

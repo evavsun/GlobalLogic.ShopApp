@@ -8,6 +8,10 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
+            builder.HasKey(o => o.Id).IsClustered(true);
+
+            builder.Property(o => o.Id).HasDefaultValueSql("newsequentialid()");
+
             builder.HasMany(o => o.OrderItems)
                 .WithOne(oi => oi.Order)
                 .HasForeignKey(oi => oi.OrderId)

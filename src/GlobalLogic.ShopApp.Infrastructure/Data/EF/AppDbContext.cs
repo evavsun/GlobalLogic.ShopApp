@@ -2,6 +2,7 @@
 using GlobalLogic.ShopApp.Core.AggregatesModel.ApplicationUserAggregate;
 using GlobalLogic.ShopApp.Core.AggregatesModel.OrderAggregate;
 using GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate;
+using GlobalLogic.ShopApp.Infrastructure.Data.EF.Config;
 
 namespace GlobalLogic.ShopApp.Infrastructure.Data
 {
@@ -22,6 +23,7 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data
         {
             modelBuilder.ApplyConfiguration(new OrderConfig());
             modelBuilder.ApplyConfiguration(new ProductConfig());
+            modelBuilder.ApplyConfiguration(new OrderItemConfig());
         }
     }
 }

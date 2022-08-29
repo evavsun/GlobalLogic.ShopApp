@@ -17,6 +17,11 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data
             {
                 q.Property(e => e.Quantity).HasColumnName("Quantity");
             });
+
+            builder.OwnsOne(p => p.Price, q =>
+            {
+                q.Property(e => e.Price).HasColumnName("Price");
+            });
         }
     }
 }

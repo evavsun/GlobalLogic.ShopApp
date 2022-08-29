@@ -1,12 +1,12 @@
-﻿using GlobalLogic.ShopApp.Core.Exceptions;
-
-namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
+﻿namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
 {
-    public class Product : Entity, IAggregateRoot
+    public class Product : IAggregateRoot
     {
+        public int Id { get; set; }
+
         public string Name { get; private set; }
 
-        public decimal Price { get; private set; }
+        public ProductPrice Price { get; private set; }
 
         public ProductQuantity Quantity { get; private set; }
 
@@ -26,7 +26,7 @@ namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
         {
             Name = name;
             Description = description;
-            Price = ValidatePrice(price) ? price : throw new ProductPriceException();
+            Price = new ProductPrice(price);
             CreateDate = DateTime.UtcNow;
             Quantity = new ProductQuantity(quantity);
             _productImages = new List<ProductImage>();
@@ -34,8 +34,5 @@ namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
 
         public void AddProductImage(string path) =>
             _productImages.Add(new ProductImage(path, Id));
-
-        private bool ValidatePrice(decimal price) =>
-            price >= 0;
     }
 }

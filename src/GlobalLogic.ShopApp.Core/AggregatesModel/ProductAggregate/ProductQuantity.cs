@@ -11,15 +11,25 @@ namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
             SetQuantity(quantity);
         }
 
-        public void SetQuantity(int quantity) =>
-            Quantity = quantity > 0 ? quantity : throw new QuantityEqualOrBelowZeroException();
+        public void SetQuantity(int quantity)
+        {
+            ValidateQunatity(quantity);
+            Quantity = quantity;
+        }
 
         public void DecreaseQuantity(int quantity)
         {
-            var decreasedQuantity =- quantity > Quantity
+            ValidateQunatity(quantity);
+            Quantity =- quantity > Quantity
                 ? throw new ProductQuntityIsNotAvailableException($"This quantity is not available for product. Available quantity is {Quantity}")
                 : quantity;
-            SetQuantity(decreasedQuantity);
+        }
+
+        private void ValidateQunatity(int quantity)
+        {
+            if (quantity > 0)
+                return;
+            throw new QuantityEqualOrBelowZeroException();
         }
     }
 }
