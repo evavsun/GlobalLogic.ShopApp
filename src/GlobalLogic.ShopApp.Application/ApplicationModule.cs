@@ -11,10 +11,10 @@ namespace GlobalLogic.ShopApp.Application
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<AuthorizationService>().As<IAuthorizationService>().SingleInstance();
-            builder.RegisterType<TokenProvider>().As<ITokenProvider>().SingleInstance();
-            builder.RegisterGeneric(typeof(PasswordHasher<>)).As(typeof(IPasswordHasher<>)).SingleInstance();
-            builder.RegisterType<OrderService>().As<IOrderService>().SingleInstance();
+            builder.RegisterType<AuthorizationService>().As<IAuthorizationService>().InstancePerLifetimeScope();
+            builder.RegisterType<TokenProvider>().As<ITokenProvider>().InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(PasswordHasher<>)).As(typeof(IPasswordHasher<>)).InstancePerLifetimeScope();
+            builder.RegisterType<OrderService>().As<IOrderService>().InstancePerLifetimeScope();
             builder.RegisterType<MemoryCache>().As<IMemoryCache>().SingleInstance();
         }
     }
