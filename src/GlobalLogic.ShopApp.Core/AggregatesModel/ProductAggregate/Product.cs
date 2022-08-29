@@ -20,6 +20,8 @@ namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
 
         public IReadOnlyCollection<ProductImage> ProductImages => _productImages;
 
+        protected Product() { }
+
         public Product(string name, string description, decimal price, int quantity)
         {
             Name = name;
