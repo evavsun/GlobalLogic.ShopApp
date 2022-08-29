@@ -19,7 +19,7 @@ namespace GlobalLogic.ShopApp.Application.Services
         public async Task CreateAsync(Order order)
         {
             var basket = await _basketStore.GetAsync(order.UserId);
-            var products = await _unitOfWork.Products.FindAsync(x => basket.Items.Select(i => i.ProductId).Contains(x.Id));
+            var products = await _unitOfWork.Products.FindAsync(basket.Items.Select(i => i.ProductId).ToArray());
             foreach (var item in basket.Items)
             {
                 var product = products.First(x => x.Id == item.ProductId);

@@ -32,7 +32,24 @@
             _productImages = new List<ProductImage>();
         }
 
+        public void SetName(string name)
+        {
+            Name = name;
+            UpdateDate = DateTime.UtcNow;
+        }
+
+
+        public void SetDescription(string description) 
+        {
+            Description = description;
+            UpdateDate = DateTime.UtcNow;
+        }
+
+
         public void AddProductImage(string path) =>
             _productImages.Add(new ProductImage(path, Id));
+
+        public void RemoveProductImage(ProductImage productImage) =>
+            _productImages.Remove(productImage);
     }
 }

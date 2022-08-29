@@ -1,7 +1,5 @@
 ﻿using GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-
 namespace GlobalLogic.ShopApp.Infrastructure.Data
 {
     public class ProductRepository : IProductRepository
@@ -13,9 +11,23 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data
             _dbContext = dbContext;
         }
 
-        public Task<Product[]> FindAsync(Expression<Func<Product, bool>> predicate)
-        {
-            return _dbContext.Products.Where(predicate).Include(x => x.ProductImages).ToArrayAsync();
-        }
+        public Task<Product[]> GetAllAsync(int page, int count) =>
+            _dbContext.Products.Include(x => x.ProductImages)
+            .Skip(page)
+            .Take(count)
+            .ToArrayAsync();
+
+        public Task<Product?> GetByIdAsync(int id) =>
+            _dbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
+
+        public Task<Product[]> FindAsync(params int[] ids) =>
+             _dbContext.Products.Where(x => ids.Contains(x.Id))
+            .Include(x => x.ProductImages).ToArrayAsync();
+
+        public async Task AddAsync(Product product) =>
+            await _dbContext.AddAsync(product);
+
+        public void Remove(Product product) =>
+            _dbContext.Remove(product);
     }
 }

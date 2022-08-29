@@ -18,7 +18,7 @@ namespace GlobalLogic.ShopApp.Application.Services
         public async Task<IEnumerable<BasketItemDto>> GetBusketItemsAsync(int userId)
         {
             var basket = await _basketStore.GetAsync(userId);
-            var products = await _unitOfWork.Products.FindAsync(x => basket.Items.Select(i => i.ProductId).Contains(x.Id));
+            var products = await _unitOfWork.Products.FindAsync(basket.Items.Select(i => i.ProductId).ToArray());
             return products.Select(x => new BasketItemDto(x));
         }
 
