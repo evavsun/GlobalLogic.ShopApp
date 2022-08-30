@@ -1,6 +1,6 @@
 ﻿namespace GlobalLogic.ShopApp.Core.AggregatesModel.BasketAggregate
 {
-    public class Basket : Entity, IAggregateRoot
+    public class Basket
     {
         public int UserId { get; private set; }
 

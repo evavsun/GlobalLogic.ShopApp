@@ -13,7 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalLogic.ShopApp.Infrast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalLogic.ShopApp.Api", "src\GlobalLogic.ShopApp.Api\GlobalLogic.ShopApp.Api.csproj", "{84517887-4072-433D-9FB1-BD4A1B9BCC5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalLogic.ShopApp.Application", "src\GlobalLogic.ShopApp.Application\GlobalLogic.ShopApp.Application.csproj", "{B4747C14-7A56-49E1-905F-FE43A68BB4C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalLogic.ShopApp.Application", "src\GlobalLogic.ShopApp.Application\GlobalLogic.ShopApp.Application.csproj", "{B4747C14-7A56-49E1-905F-FE43A68BB4C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2C8D2227-113C-48DC-BAA3-5DA9E58CE335}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

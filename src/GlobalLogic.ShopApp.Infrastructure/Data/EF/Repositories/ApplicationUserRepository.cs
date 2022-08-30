@@ -18,9 +18,9 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data
             await _dbContext.ApplicationUsers.AddAsync(user);
         }
 
-        public Task<ApplicationUser?> GetAsync(Expression<Func<ApplicationUser, bool>> predicate)
+        public Task<ApplicationUser?> GetAsync(string login)
         {
-            return _dbContext.ApplicationUsers.FirstOrDefaultAsync(predicate);
+            return _dbContext.ApplicationUsers.FirstOrDefaultAsync(x => x.Login == login);
         }
     }
 }

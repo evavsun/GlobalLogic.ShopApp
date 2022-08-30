@@ -18,7 +18,7 @@ namespace GlobalLogic.ShopApp.Core.Dtos
         {
             ProductId = product.Id;
             ProductName = product.Name;
-            ProductPrice = product.Price;
+            ProductPrice = product.Price.Price;
             ProductDescription = product.Description;
             ProductImages = product.ProductImages.Select(x => x.Path).ToArray();
         }

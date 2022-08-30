@@ -2,8 +2,10 @@
 
 namespace GlobalLogic.ShopApp.Core.AggregatesModel.OrderAggregate
 {
-    public class Order : Entity, IAggregateRoot
+    public class Order : IAggregateRoot
     {
+        public Guid Id { get; set; }
+
         public int UserId { get; private set; }
 
         public DateTime OrderDate { get; private set; }

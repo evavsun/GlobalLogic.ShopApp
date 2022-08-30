@@ -2,7 +2,7 @@
 
 namespace GlobalLogic.ShopApp.Core.AggregatesModel.BasketAggregate
 {
-    public class BasketItem : Entity
+    public class BasketItem
     {
         public int ProductId { get; private set; }
 

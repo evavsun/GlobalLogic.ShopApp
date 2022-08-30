@@ -1,7 +1,9 @@
 ﻿namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
 {
-    public class ProductImage : Entity
+    public class ProductImage
     {
+        public int Id { get; set; }
+
         public int ProductId { get; private set; }
 
         public Product? Product { get; private set; }

@@ -1,6 +1,6 @@
 ﻿namespace GlobalLogic.ShopApp.Core.Interfaces
 {
-    public interface IUserService
+    public interface IAuthorizationService
     {
         Task RegisterAsync(string login, string password);
 

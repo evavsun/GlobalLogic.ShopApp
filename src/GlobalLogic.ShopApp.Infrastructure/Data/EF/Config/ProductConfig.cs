@@ -12,6 +12,16 @@ namespace GlobalLogic.ShopApp.Infrastructure.Data
                 .WithOne(pi => pi.Product)
                 .HasForeignKey(p => p.ProductId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.OwnsOne(p => p.Quantity, q =>
+            {
+                q.Property(e => e.Quantity).HasColumnName("Quantity");
+            });
+
+            builder.OwnsOne(p => p.Price, q =>
+            {
+                q.Property(e => e.Price).HasColumnName("Price");
+            });
         }
     }
 }
