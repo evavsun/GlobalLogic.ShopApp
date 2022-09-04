@@ -1,4 +1,6 @@
-﻿namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
+﻿using GlobalLogic.ShopApp.Core.Exceptions;
+
+namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
 {
     public class Product : IAggregateRoot
     {
@@ -32,22 +34,29 @@
             _productImages = new List<ProductImage>();
         }
 
-        public void SetName(string name)
-        {
+        public void SetName(string name) =>
             Name = name;
-        }
 
-
-        public void SetDescription(string description)
-        {
+        public void SetDescription(string description) =>
             Description = description;
-        }
 
+        public void SetPrice(ProductPrice price) =>
+            Price = price;
+
+        public void SetQuantity(ProductQuantity quantity) =>
+            Quantity = quantity;
+
+        public void DecreaseQuantity(int quantity) =>
+            Quantity = quantity > Quantity.Quantity
+                ? throw new ProductQuntityIsNotAvailableException($"This quantity is not available for product {Name}. Available quantity is {Quantity}")
+                : new ProductQuantity(quantity);
+        
 
         public void AddProductImage(string path) =>
-            _productImages.Add(new ProductImage(path, Id));
+        _productImages.Add(new ProductImage(path, Id));
 
         public void RemoveProductImage(ProductImage productImage) =>
             _productImages.Remove(productImage);
     }
+
 }

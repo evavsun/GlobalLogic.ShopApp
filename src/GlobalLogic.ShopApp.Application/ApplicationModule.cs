@@ -15,6 +15,7 @@ namespace GlobalLogic.ShopApp.Application
             builder.RegisterType<TokenProvider>().As<ITokenProvider>().InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(PasswordHasher<>)).As(typeof(IPasswordHasher<>)).InstancePerLifetimeScope();
             builder.RegisterType<OrderService>().As<IOrderService>().InstancePerLifetimeScope();
+            builder.RegisterType<BasketService>().As<IBasketService>().InstancePerLifetimeScope();
             builder.RegisterType<MemoryCache>().As<IMemoryCache>().SingleInstance();
         }
     }

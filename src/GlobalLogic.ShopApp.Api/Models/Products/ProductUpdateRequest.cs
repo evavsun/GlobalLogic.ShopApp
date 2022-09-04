@@ -15,8 +15,8 @@ namespace GlobalLogic.ShopApp.Api.Models.Products
         public Product MapToProduct(Product product)
         {
             product.SetName(Name);
-            product.Price.SetPrice(Price);
-            product.Quantity.SetQuantity(Qunatity);
+            product.SetPrice(new ProductPrice(Price));
+            product.SetQuantity(new ProductQuantity(Qunatity));
             product.SetDescription(Description);
             return product;
         }

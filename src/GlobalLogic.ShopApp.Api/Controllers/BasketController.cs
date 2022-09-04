@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using GlobalLogic.ShopApp.Core.Interfaces;
-using GlobalLogic.ShopApp.Api.Models;
+using GlobalLogic.ShopApp.Core.AggregatesModel.BasketAggregate;
 
 namespace GlobalLogic.ShopApp.Api.Controllers
 {
@@ -21,19 +21,18 @@ namespace GlobalLogic.ShopApp.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BasketItemResponse>>> GetBasketItems()
+        public async Task<ActionResult<Basket>> GetBasket()
         {
-            var user = await _unitOfWork.ApplicationUsers.GetAsync(HttpContext.User.Identity!.Name!);
-            var items = await _basketService.GetBusketItemsAsync(user!.Id);
-            var result = items.Select(x => new BasketItemResponse(x));
-            return Ok(result);
+            var user = await _unitOfWork.ApplicationUsers.GetAsync(HttpContext.User.Identity.Name);
+            var basket = await _basketService.GetBusketAsync(user.Id);
+            return Ok(basket);
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddProduct([FromBody] AddItemIntoBasketRequest addItemIntoBasketRequest)
+        public async Task<ActionResult> AddProduct([FromBody] BasketItem basketItem)
         {
-            var user = await _unitOfWork.ApplicationUsers.GetAsync(HttpContext.User.Identity!.Name!);
-            await _basketService.AddProductAsync(user!.Id, addItemIntoBasketRequest.ProductId, addItemIntoBasketRequest.Quantity);
+            var user = await _unitOfWork.ApplicationUsers.GetAsync(HttpContext.User.Identity.Name);
+            await _basketService.AddProductAsync(user.Id, basketItem);
             return Ok();
         }
     }

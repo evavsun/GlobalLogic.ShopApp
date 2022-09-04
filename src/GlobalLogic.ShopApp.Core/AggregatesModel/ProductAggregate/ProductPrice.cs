@@ -2,16 +2,11 @@
 
 namespace GlobalLogic.ShopApp.Core.AggregatesModel.ProductAggregate
 {
-    public record class ProductPrice
+    public record ProductPrice
     {
-        public decimal Price { get; private set; }
+        public decimal Price { get; init; }
 
         public ProductPrice(decimal price)
-        {
-            SetPrice(price);
-        }
-
-        public void SetPrice(decimal price)
         {
             Price = price < 0 ? throw new ProductPriceException() : price;
         }
