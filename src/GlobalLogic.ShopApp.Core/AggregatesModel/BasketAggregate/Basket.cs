@@ -14,15 +14,21 @@
             _items = new List<BasketItem>();
         }
 
-        public void AddProduct(int productId, int quantity = 1)
+        public void AddItem(BasketItem basketItem)
         {
-            var existingItem = Items.FirstOrDefault(i => i.ProductId == productId);
+            var existingItem = Items.FirstOrDefault(i => i.ProductId == basketItem.ProductId);
             if (existingItem is null)
             {
-                _items.Add(new BasketItem(productId, quantity));
+                _items.Add(basketItem); ;
                 return;
             }
-            existingItem.AddQuantity(quantity);
+            existingItem.AddQuantity(basketItem.Quantity);
+        }
+
+        public void RemoveItem(int productId)
+        {
+            var item = _items.SingleOrDefault(i => i.ProductId == productId);
+            _items.Remove(item);
         }
     }
 }

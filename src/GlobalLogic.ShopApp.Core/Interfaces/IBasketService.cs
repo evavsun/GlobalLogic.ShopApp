@@ -1,10 +1,10 @@
-﻿using GlobalLogic.ShopApp.Core.Dtos;
+﻿using GlobalLogic.ShopApp.Core.AggregatesModel.BasketAggregate;
 
 namespace GlobalLogic.ShopApp.Core.Interfaces
 {
     public interface IBasketService
     {
-        Task<IEnumerable<BasketItemDto>> GetBusketItemsAsync(int userId);
-        Task AddProductAsync(int userId, int productId, int quantity);
+        Task<Basket> GetBusketAsync(int userId);
+        Task AddProductAsync(int userId, BasketItem basketItem);
     }
 }

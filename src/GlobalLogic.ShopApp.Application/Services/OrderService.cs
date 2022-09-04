@@ -23,7 +23,7 @@ namespace GlobalLogic.ShopApp.Application.Services
             foreach (var item in basket.Items)
             {
                 var product = products.First(x => x.Id == item.ProductId);
-                product.Quantity.DecreaseQuantity(item.Quantity);
+                product.DecreaseQuantity(item.Quantity);
                 order.AddOrderItem(item.ProductId, item.Quantity);
             }
             await _unitOfWork.Orders.CreateAsync(order);

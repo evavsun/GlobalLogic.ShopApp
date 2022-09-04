@@ -1,5 +1,4 @@
 ﻿using GlobalLogic.ShopApp.Core.AggregatesModel.BasketAggregate;
-using GlobalLogic.ShopApp.Core.Dtos;
 using GlobalLogic.ShopApp.Core.Interfaces;
 
 namespace GlobalLogic.ShopApp.Application.Services
@@ -15,17 +14,15 @@ namespace GlobalLogic.ShopApp.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<BasketItemDto>> GetBusketItemsAsync(int userId)
+        public Task<Basket> GetBusketAsync(int userId)
         {
-            var basket = await _basketStore.GetAsync(userId);
-            var products = await _unitOfWork.Products.FindAsync(basket.Items.Select(i => i.ProductId).ToArray());
-            return products.Select(x => new BasketItemDto(x));
+            return _basketStore.GetAsync(userId);
         }
 
-        public async Task AddProductAsync(int userId, int productId, int quantity)
+        public async Task AddProductAsync(int userId, BasketItem basketItem)
         {
             var basket = await _basketStore.GetOrCreateAsync(userId);
-            basket.AddProduct(productId, quantity);
+            basket.AddItem(basketItem);
             await _basketStore.UpdateAsync(userId, basket);
         }
     }
