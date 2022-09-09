@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: monolithic-ingress
+spec:
+  rules:
+  - host: monolithic.com
+    http:
+      paths:
+      - backend:
+          serviceName: monolithic-service
+          servicePort: 80
