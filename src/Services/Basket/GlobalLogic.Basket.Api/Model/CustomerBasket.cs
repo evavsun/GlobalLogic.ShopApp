@@ -2,14 +2,14 @@
 {
     public class CustomerBasket
     {
-        public string UserId { get; private set; }
+        public string UserEmail { get; private set; }
 
         public List<BasketItem> Items { get; set; } = new();
 
 
-        public CustomerBasket(string userId)
+        public CustomerBasket(string userEmail)
         {
-            UserId = userId;
+            UserEmail = userEmail;
         }
 
         public void AddItem(BasketItem basketItem)

@@ -1,9 +1,4 @@
-﻿using StackExchange.Redis;
-using System.Text.Json;
-using GlobalLogic.Basket.Api.Interfaces;
-using GlobalLogic.Basket.Api.Model;
-
-namespace GlobalLogic.Basket.Api.Infrastructure
+﻿namespace GlobalLogic.Basket.Api.Infrastructure
 {
     public class RedisBasketRepository : IBasketRepository
     {
@@ -21,9 +16,9 @@ namespace GlobalLogic.Basket.Api.Infrastructure
             return _database.KeyDeleteAsync(id);
         }
 
-        public async Task<CustomerBasket> GetBasketAsync(string customerId)
+        public async Task<CustomerBasket> GetBasketAsync(string userEmail)
         {
-            var data = await _database.StringGetAsync(customerId);
+            var data = await _database.StringGetAsync(userEmail);
 
             if (data.IsNullOrEmpty)
             {
@@ -38,7 +33,7 @@ namespace GlobalLogic.Basket.Api.Infrastructure
 
         public async Task<CustomerBasket> UpdateBasketAsync(CustomerBasket basket)
         {
-            var created = await _database.StringSetAsync(basket.UserId, JsonSerializer.Serialize(basket));
+            var created = await _database.StringSetAsync(basket.UserEmail, JsonSerializer.Serialize(basket));
 
             if (!created)
             {
@@ -48,8 +43,8 @@ namespace GlobalLogic.Basket.Api.Infrastructure
 
             _logger.LogInformation("Basket item persisted succesfully.");
 
-            var x = await GetBasketAsync(basket.UserId);
-            return await GetBasketAsync(basket.UserId);
+            var x = await GetBasketAsync(basket.UserEmail);
+            return await GetBasketAsync(basket.UserEmail);
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using GlobalLogic.ShopApp.Core.AggregatesModel.OrderAggregate;
-
-namespace GlobalLogic.ShopApp.Api.Models
+﻿namespace GlobalLogic.Basket.Api.Contracts
 {
-    public class CreateOrderRequest
+    public class BasketCheckoutRequest
     {
         public string Street { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
@@ -11,8 +9,5 @@ namespace GlobalLogic.ShopApp.Api.Models
         public string ZipCode { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string PaymentMethodId { get; set; } = string.Empty;
-
-        public Order MapToOrder(int userId) =>
-            new(userId, new Address(Street, City, State, Country, ZipCode), Description, PaymentMethodId);
     }
 }

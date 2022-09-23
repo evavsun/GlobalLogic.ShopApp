@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using GlobalLogic.ShopApp.Core.Interfaces;
+﻿using GlobalLogic.ShopApp.Core.Interfaces;
 using GlobalLogic.ShopApp.Api.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GlobalLogic.ShopApp.Api.Controllers
 {

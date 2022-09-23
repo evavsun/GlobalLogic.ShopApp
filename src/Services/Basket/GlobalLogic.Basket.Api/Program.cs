@@ -1,9 +1,3 @@
-using GlobalLogic.Basket.Api.Config;
-using GlobalLogic.Basket.Api.Infrastructure;
-using GlobalLogic.Basket.Api.Interfaces;
-using Microsoft.Extensions.Options;
-using StackExchange.Redis;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,10 +6,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient<OrderingProcessService>();
 
 builder.Services.Configure<BasketSettings>(builder.Configuration);
 
 builder.Services.AddScoped<IBasketRepository, RedisBasketRepository>();
+builder.Services.AddScoped<IIdentityService, IdentityService>();
 
 builder.Services.AddSingleton<ConnectionMultiplexer>(sp =>
 {
@@ -25,6 +22,9 @@ builder.Services.AddSingleton<ConnectionMultiplexer>(sp =>
     return ConnectionMultiplexer.Connect(configuration);
 });
 
+var x = builder.Configuration.GetSection("Jwt").Get<JwtOptions>();
+
+builder.Services.AddJwtAuthentication(builder.Configuration.GetSection("Jwt").Get<JwtOptions>());
 
 var app = builder.Build();
 
@@ -35,8 +35,10 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+

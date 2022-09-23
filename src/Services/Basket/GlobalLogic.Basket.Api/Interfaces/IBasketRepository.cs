@@ -1,6 +1,4 @@
-﻿using GlobalLogic.Basket.Api.Model;
-
-namespace GlobalLogic.Basket.Api.Interfaces
+﻿namespace GlobalLogic.Basket.Api.Interfaces
 {
     public interface IBasketRepository
     {
