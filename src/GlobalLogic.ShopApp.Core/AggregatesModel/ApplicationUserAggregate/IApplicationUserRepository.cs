@@ -6,6 +6,6 @@ namespace GlobalLogic.ShopApp.Core.AggregatesModel.ApplicationUserAggregate
     {
         Task AddAsync(ApplicationUser user);
 
-        Task<ApplicationUser?> GetAsync(string login);
+        Task<ApplicationUser> GetAsync(string login);
     }
 }

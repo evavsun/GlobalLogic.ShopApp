@@ -1,7 +1,8 @@
-﻿using GlobalLogic.ShopApp.Api.Models;
+﻿using GlobalLogic.ShopApp.Api.Models.OrderingProcess;
 using GlobalLogic.ShopApp.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GlobalLogic.ShopApp.Api.Controllers
 {
@@ -22,9 +23,12 @@ namespace GlobalLogic.ShopApp.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] CreateOrderRequest createOrderRequest)
         {
-            var user = await _unitOfWork.ApplicationUsers.GetAsync(HttpContext.User.Identity.Name);
-            await _orderService.CreateAsync(createOrderRequest.MapToOrder(user!.Id));
-            return Ok();
+            var userEmail = HttpContext.User.Identity.Name;
+            return Ok("Communication works fine");
+
+            //var user = await _unitOfWork.ApplicationUsers.GetAsync(HttpContext.User.Identity.Name);
+            //await _orderService.CreateAsync(createOrderRequest.MapToOrder(user.Id));
+            //return Ok();
         }
     }
 }

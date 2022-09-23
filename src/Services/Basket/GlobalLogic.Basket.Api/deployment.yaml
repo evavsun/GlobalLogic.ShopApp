@@ -1,0 +1,49 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basket-deployment
+  labels:
+    app: basket
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: basket
+  template:
+     metadata:
+       labels:
+         app: basket
+         run: basket
+     spec:
+       containers:
+       - name: redis
+         image: redis
+         imagePullPolicy: IfNotPresent
+         ports:
+         - containerPort: 6379
+       - name: basket
+         image: globallogic-shop-app:basket
+         imagePullPolicy: IfNotPresent
+         ports:
+         - containerPort: 80
+         env:
+         - name: ASPNETCORE_ENVIRONMENT
+           value: Development
+         - name: OrderingServiceHost
+           value: http://monolithic-deployment/api/
+           #httpProxy
+           
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: basket-service
+#  labels:
+#    run: basket-service
+#spec:
+#  ports:
+#  - port: 80
+#    protocol: TCP
+#  selector:
+#    run: basket-service
+#  type: LoadBalancer

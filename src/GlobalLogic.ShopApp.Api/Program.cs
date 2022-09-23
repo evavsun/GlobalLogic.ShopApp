@@ -17,7 +17,7 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
     containerBuilder.RegisterModule(new InfrastructureModule());
 });
 
-builder.Services.AddAuthentication(builder.Configuration.GetSection("Auth").Get<AuthOptions>());
+builder.Services.AddAuthentication(builder.Configuration.GetSection("Jwt").Get<JwtOptions>());
 
 builder.Services.AddControllers();
 
@@ -27,11 +27,9 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 

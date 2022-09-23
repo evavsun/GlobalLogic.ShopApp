@@ -10,9 +10,9 @@ namespace GlobalLogic.ShopApp.Application.Identity
 {
     public class TokenProvider : ITokenProvider
     {
-        private readonly IOptions<AuthOptions> _authOptions;
+        private readonly IOptions<JwtOptions> _authOptions;
 
-        public TokenProvider(IOptions<AuthOptions> authOptions)
+        public TokenProvider(IOptions<JwtOptions> authOptions)
         {
             _authOptions = authOptions;
         }
